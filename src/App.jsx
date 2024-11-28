@@ -4,44 +4,43 @@ const App = () => {
   const [input, setInput] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // Success message state
+  const [successMessage, setSuccessMessage] = useState(''); 
 
-  // Function to handle calculation
   const calculate = () => {
     try {
       setError('');
-      setSuccessMessage(''); // Clear success message on new calculation
-      const calcResult = add(input); // Call the add function
+      setSuccessMessage(''); 
+      const calcResult = add(input); 
       setResult(calcResult);
-      setSuccessMessage(`Calculation Successful! Result: ${calcResult}`); // Set success message
+      setSuccessMessage(`Calculation Successful! Result: ${calcResult}`); 
     } catch (err) {
-      setError(err.message); // Set error if any negative number is found
+      setError(err.message); 
       setResult(null);
-      setSuccessMessage(''); // Clear success message if there's an error
+      setSuccessMessage(''); 
     }
   };
 
-  // Add function to handle calculation
+
   const add = (numbers) => {
-    if (!numbers) return 0; // Step 1: Handle empty string
+    if (!numbers) return 0; 
 
-    let delimiter = /,|\n/; // Default delimiters are comma and newline
+    let delimiter = /,|\n/; 
 
-    // Step 4: Handle custom delimiters
+ 
     if (numbers.startsWith("//")) {
       const delimiterEnd = numbers.indexOf("\n");
       const customDelimiter = numbers.slice(2, delimiterEnd); // Extract the custom delimiter
       delimiter = new RegExp(customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")); // Escape special characters
-      numbers = numbers.slice(delimiterEnd + 1); // Remove the delimiter line
+      numbers = numbers.slice(delimiterEnd + 1); 
     }
 
-    // Split the string by the current delimiter(s)
+    
     const numberList = numbers
       .split(delimiter)
-      .map((num) => num.trim()) // Remove unnecessary spaces
-      .filter((num) => num !== ""); // Ignore empty strings
+      .map((num) => num.trim()) 
+      .filter((num) => num !== ""); 
 
-    // Step 5: Handle negative numbers
+   
     const negativeNumbers = numberList.filter((num) => Number(num) < 0);
     if (negativeNumbers.length > 0) {
       throw new Error(
@@ -49,7 +48,7 @@ const App = () => {
       );
     }
 
-    // Convert valid numbers to integers and calculate the sum
+   
     return numberList.reduce((sum, num) => sum + Number(num), 0);
   };
 
