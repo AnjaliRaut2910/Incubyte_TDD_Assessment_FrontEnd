@@ -29,8 +29,8 @@ const App = () => {
  
     if (numbers.startsWith("//")) {
       const delimiterEnd = numbers.indexOf("\n");
-      const customDelimiter = numbers.slice(2, delimiterEnd); // Extract the custom delimiter
-      delimiter = new RegExp(customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")); // Escape special characters
+      const customDelimiter = numbers.slice(2, delimiterEnd); 
+      delimiter = new RegExp(customDelimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
       numbers = numbers.slice(delimiterEnd + 1); 
     }
 
